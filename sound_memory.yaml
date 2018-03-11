@@ -1,0 +1,341 @@
+# This is an example source file for a TipToi file
+# The basic format is YAML
+
+# You can compile this running
+# ./tttool assemble example.yaml example.gme
+
+# The product ID must match that of the book you want to use this with (42)
+product-id: 904
+
+# The media path is optional
+# The default is "%s", i.e. to look in the current directory
+# If you use "example/Buch1_%s", here then P(test) will use
+# the file "example/Buch1_test.ogg".
+# Ogg files should be Mono, 22050 Hz.
+# tttool will append .wav or .ogg and uses whatever it finds
+media-path: "geraeusch_memory/media/%s"
+
+# The comment does not really matter
+comment: An example GME file
+
+# Register initalisation. This is simply list of set-commands.
+# Every register not set is initialized to 0
+init: $trial:=0
+init: $sound1a_check:=0
+init: $sound1b_check:=0
+init: $sound2a_check:=0
+init: $sound2b_check:=0
+init: $sound3a_check:=0
+init: $sound3b_check:=0
+init: $sound4a_check:=0
+init: $sound4b_check:=0
+init: $sound5a_check:=0
+init: $sound5b_check:=0
+init: $sound6a_check:=0
+init: $sound6b_check:=0
+init: $sound7a_check:=0
+init: $sound7b_check:=0
+init: $sound8a_check:=0
+init: $sound8b_check:=0
+init: $sound9a_check:=0
+init: $sound9b_check:=0
+init: $sound10a_check:=0
+init: $sound10b_check:=0
+init: $sound11a_check:=0
+init: $sound11b_check:=0
+init: $sound12a_check:=0
+init: $sound12b_check:=0
+init: $sound13a_check:=0
+init: $sound13b_check:=0
+init: $sound14a_check:=0
+init: $sound14b_check:=0
+init: $sound15a_check:=0
+init: $sound15b_check:=0
+init: $sound16a_check:=0
+init: $sound16b_check:=0
+init: $sound17a_check:=0
+init: $sound17b_check:=0
+init: $sound18a_check:=0
+init: $sound18b_check:=0
+init: $sound19a_check:=0
+init: $sound19b_check:=0
+init: $sound20a_check:=0
+init: $sound20b_check:=0
+
+
+# The sounds to play on start-up
+welcome: willkommen
+
+# This is the interesting part: Scripts.
+# Technically, this is an assoiative list with the OID as an index,
+# and a list of strings as the content
+scripts:
+  # The next one is more complicated, as we have conditional scripts
+  sound1a:
+  - $trial==0? $sound1a_check:=1 $trial+=1 P(sound1)
+  - $trial==1? $sound1b_check==1? $trial:=0 $sound1b_check:=0  P(sound1) P(correct)
+  - $trial==1? $sound1b_check!=1? $trial:=0 P(sound1) P(wrong) J(reset)
+  sound1b:
+  - $trial==0? $sound1b_check:=1 $trial+=1 P(sound1)
+  - $trial==1? $sound1a_check==1? $trial:=0 $sound1a_check:=0  P(sound1) P(correct)
+  - $trial==1? $sound1a_check!=1? $trial:=0 P(sound1) P(wrong) J(reset)
+
+  sound2a:
+  - $trial==0? $sound2a_check:=1 $trial+=1 P(sound2)
+  - $trial==1? $sound2b_check==1? $trial:=0 $sound2b_check:=0  P(sound2) P(correct)
+  - $trial==1? $sound2b_check!=1? $trial:=0 P(sound2) P(wrong) J(reset)
+  sound2b:
+  - $trial==0? $sound2b_check:=1 $trial+=1 P(sound2)
+  - $trial==1? $sound2a_check==1? $trial:=0 $sound2a_check:=0  P(sound2) P(correct)
+  - $trial==1? $sound2a_check!=1? $trial:=0 P(sound2) P(wrong) J(reset)
+
+  sound6a:
+  - $trial==0? $sound6a_check:=1 $trial+=1 P(sound6)
+  - $trial==1? $sound6b_check==1? $trial:=0 $sound6b_check:=0  P(sound6) P(correct)
+  - $trial==1? $sound6b_check!=1? $trial:=0 P(sound6) P(wrong) J(reset)
+  sound6b:
+  - $trial==0? $sound6b_check:=1 $trial+=1 P(sound6)
+  - $trial==1? $sound6a_check==1? $trial:=0 $sound6a_check:=0  P(sound6) P(correct)
+  - $trial==1? $sound6a_check!=1? $trial:=0 P(sound6) P(wrong) J(reset)
+
+  sound4a:
+  - $trial==0? $sound4a_check:=1 $trial+=1 P(sound4)
+  - $trial==1? $sound4b_check==1? $trial:=0 $sound4b_check:=0  P(sound4) P(correct)
+  - $trial==1? $sound4b_check!=1? $trial:=0 P(sound4) P(wrong) J(reset)
+  sound4b:
+  - $trial==0? $sound4b_check:=1 $trial+=1 P(sound4)
+  - $trial==1? $sound4a_check==1? $trial:=0 $sound4a_check:=0  P(sound4) P(correct)
+  - $trial==1? $sound4a_check!=1? $trial:=0 P(sound4) P(wrong) J(reset)
+
+  sound5a:
+  - $trial==0? $sound5a_check:=1 $trial+=1 P(sound5)
+  - $trial==1? $sound5b_check==1? $trial:=0 $sound5b_check:=0  P(sound5) P(correct)
+  - $trial==1? $sound5b_check!=1? $trial:=0 P(sound5) P(wrong) J(reset)
+  sound5b:
+  - $trial==0? $sound5b_check:=1 $trial+=1 P(sound5)
+  - $trial==1? $sound5a_check==1? $trial:=0 $sound5a_check:=0  P(sound5) P(correct)
+  - $trial==1? $sound5a_check!=1? $trial:=0 P(sound5) P(wrong) J(reset)
+
+  sound6a:
+  - $trial==0? $sound6a_check:=1 $trial+=1 P(sound6)
+  - $trial==1? $sound6b_check==1? $trial:=0 $sound6b_check:=0  P(sound6) P(correct)
+  - $trial==1? $sound6b_check!=1? $trial:=0 P(sound6) P(wrong) J(reset)
+  sound6b:
+  - $trial==0? $sound6b_check:=1 $trial+=1 P(sound6)
+  - $trial==1? $sound6a_check==1? $trial:=0 $sound6a_check:=0  P(sound6) P(correct)
+  - $trial==1? $sound6a_check!=1? $trial:=0 P(sound6) P(wrong) J(reset)
+
+  sound7a:
+  - $trial==0? $sound7a_check:=1 $trial+=1 P(sound7)
+  - $trial==1? $sound7b_check==1? $trial:=0 $sound7b_check:=0  P(sound7) P(correct)
+  - $trial==1? $sound7b_check!=1? $trial:=0 P(sound7) P(wrong) J(reset)
+  sound7b:
+  - $trial==0? $sound7b_check:=1 $trial+=1 P(sound7)
+  - $trial==1? $sound7a_check==1? $trial:=0 $sound7a_check:=0  P(sound7) P(correct)
+  - $trial==1? $sound7a_check!=1? $trial:=0 P(sound7) P(wrong) J(reset)
+
+  sound8a:
+  - $trial==0? $sound8a_check:=1 $trial+=1 P(sound8)
+  - $trial==1? $sound8b_check==1? $trial:=0 $sound8b_check:=0  P(sound8) P(correct)
+  - $trial==1? $sound8b_check!=1? $trial:=0 P(sound8) P(wrong) J(reset)
+  sound8b:
+  - $trial==0? $sound8b_check:=1 $trial+=1 P(sound8)
+  - $trial==1? $sound8a_check==1? $trial:=0 $sound8a_check:=0  P(sound8) P(correct)
+  - $trial==1? $sound8a_check!=1? $trial:=0 P(sound8) P(wrong) J(reset)
+
+  sound9a:
+  - $trial==0? $sound9a_check:=1 $trial+=1 P(sound9)
+  - $trial==1? $sound9b_check==1? $trial:=0 $sound9b_check:=0  P(sound9) P(correct)
+  - $trial==1? $sound9b_check!=1? $trial:=0 P(sound9) P(wrong) J(reset)
+  sound9b:
+  - $trial==0? $sound9b_check:=1 $trial+=1 P(sound9)
+  - $trial==1? $sound9a_check==1? $trial:=0 $sound9a_check:=0  P(sound9) P(correct)
+  - $trial==1? $sound9a_check!=1? $trial:=0 P(sound9) P(wrong) J(reset)
+
+  sound10a:
+  - $trial==0? $sound10a_check:=1 $trial+=1 P(sound10)
+  - $trial==1? $sound10b_check==1? $trial:=0 $sound10b_check:=0  P(sound10) P(correct)
+  - $trial==1? $sound10b_check!=1? $trial:=0 P(sound10) P(wrong) J(reset)
+  sound10b:
+  - $trial==0? $sound10b_check:=1 $trial+=1 P(sound10)
+  - $trial==1? $sound10a_check==1? $trial:=0 $sound10a_check:=0  P(sound10) P(correct)
+  - $trial==1? $sound10a_check!=1? $trial:=0 P(sound10) P(wrong) J(reset)
+
+  sound11a:
+  - $trial==0? $sound11a_check:=1 $trial+=1 P(sound11)
+  - $trial==1? $sound11b_check==1? $trial:=0 $sound11b_check:=0  P(sound11) P(correct)
+  - $trial==1? $sound11b_check!=1? $trial:=0 P(sound11) P(wrong) J(reset)
+  sound11b:
+  - $trial==0? $sound11b_check:=1 $trial+=1 P(sound11)
+  - $trial==1? $sound11a_check==1? $trial:=0 $sound11a_check:=0  P(sound11) P(correct)
+  - $trial==1? $sound11a_check!=1? $trial:=0 P(sound11) P(wrong) J(reset)
+
+  sound12a:
+  - $trial==0? $sound12a_check:=1 $trial+=1 P(sound12)
+  - $trial==1? $sound12b_check==1? $trial:=0 $sound12b_check:=0  P(sound12) P(correct)
+  - $trial==1? $sound12b_check!=1? $trial:=0 P(sound12) P(wrong) J(reset)
+  sound12b:
+  - $trial==0? $sound12b_check:=1 $trial+=1 P(sound12)
+  - $trial==1? $sound12a_check==1? $trial:=0 $sound12a_check:=0  P(sound12) P(correct)
+  - $trial==1? $sound12a_check!=1? $trial:=0 P(sound12) P(wrong) J(reset)
+
+  sound13a:
+  - $trial==0? $sound13a_check:=1 $trial+=1 P(sound13)
+  - $trial==1? $sound13b_check==1? $trial:=0 $sound13b_check:=0  P(sound13) P(correct)
+  - $trial==1? $sound13b_check!=1? $trial:=0 P(sound13) P(wrong) J(reset)
+  sound13b:
+  - $trial==0? $sound13b_check:=1 $trial+=1 P(sound13)
+  - $trial==1? $sound13a_check==1? $trial:=0 $sound13a_check:=0  P(sound13) P(correct)
+  - $trial==1? $sound13a_check!=1? $trial:=0 P(sound13) P(wrong) J(reset)
+
+  sound14a:
+  - $trial==0? $sound14a_check:=1 $trial+=1 P(sound14)
+  - $trial==1? $sound14b_check==1? $trial:=0 $sound14b_check:=0  P(sound14) P(correct)
+  - $trial==1? $sound14b_check!=1? $trial:=0 P(sound14) P(wrong) J(reset)
+  sound14b:
+  - $trial==0? $sound14b_check:=1 $trial+=1 P(sound14)
+  - $trial==1? $sound14a_check==1? $trial:=0 $sound14a_check:=0  P(sound14) P(correct)
+  - $trial==1? $sound14a_check!=1? $trial:=0 P(sound14) P(wrong) J(reset)
+
+  sound15a:
+  - $trial==0? $sound15a_check:=1 $trial+=1 P(sound15)
+  - $trial==1? $sound15b_check==1? $trial:=0 $sound15b_check:=0  P(sound15) P(correct)
+  - $trial==1? $sound15b_check!=1? $trial:=0 P(sound15) P(wrong) J(reset)
+  sound15b:
+  - $trial==0? $sound15b_check:=1 $trial+=1 P(sound15)
+  - $trial==1? $sound15a_check==1? $trial:=0 $sound15a_check:=0  P(sound15) P(correct)
+  - $trial==1? $sound15a_check!=1? $trial:=0 P(sound15) P(wrong) J(reset)
+
+  sound16a:
+  - $trial==0? $sound16a_check:=1 $trial+=1 P(sound16)
+  - $trial==1? $sound16b_check==1? $trial:=0 $sound16b_check:=0  P(sound16) P(correct)
+  - $trial==1? $sound16b_check!=1? $trial:=0 P(sound16) P(wrong) J(reset)
+  sound16b:
+  - $trial==0? $sound16b_check:=1 $trial+=1 P(sound16)
+  - $trial==1? $sound16a_check==1? $trial:=0 $sound16a_check:=0  P(sound16) P(correct)
+  - $trial==1? $sound16a_check!=1? $trial:=0 P(sound16) P(wrong) J(reset)
+
+  sound17a:
+  - $trial==0? $sound17a_check:=1 $trial+=1 P(sound17)
+  - $trial==1? $sound17b_check==1? $trial:=0 $sound17b_check:=0  P(sound17) P(correct)
+  - $trial==1? $sound17b_check!=1? $trial:=0 P(sound17) P(wrong) J(reset)
+  sound17b:
+  - $trial==0? $sound17b_check:=1 $trial+=1 P(sound17)
+  - $trial==1? $sound17a_check==1? $trial:=0 $sound17a_check:=0  P(sound17) P(correct)
+  - $trial==1? $sound17a_check!=1? $trial:=0 P(sound17) P(wrong) J(reset)
+
+  sound18a:
+  - $trial==0? $sound18a_check:=1 $trial+=1 P(sound18)
+  - $trial==1? $sound18b_check==1? $trial:=0 $sound18b_check:=0  P(sound18) P(correct)
+  - $trial==1? $sound18b_check!=1? $trial:=0 P(sound18) P(wrong) J(reset)
+  sound18b:
+  - $trial==0? $sound18b_check:=1 $trial+=1 P(sound18)
+  - $trial==1? $sound18a_check==1? $trial:=0 $sound18a_check:=0  P(sound18) P(correct)
+  - $trial==1? $sound18a_check!=1? $trial:=0 P(sound18) P(wrong) J(reset)
+
+  sound19a:
+  - $trial==0? $sound19a_check:=1 $trial+=1 P(sound19)
+  - $trial==1? $sound19b_check==1? $trial:=0 $sound19b_check:=0  P(sound19) P(correct)
+  - $trial==1? $sound19b_check!=1? $trial:=0 P(sound19) P(wrong) J(reset)
+  sound19b:
+  - $trial==0? $sound19b_check:=1 $trial+=1 P(sound19)
+  - $trial==1? $sound19a_check==1? $trial:=0 $sound19a_check:=0  P(sound19) P(correct)
+  - $trial==1? $sound19a_check!=1? $trial:=0 P(sound19) P(wrong) J(reset)
+
+  sound20a:
+  - $trial==0? $sound20a_check:=1 $trial+=1 P(sound20)
+  - $trial==1? $sound20b_check==1? $trial:=0 $sound20b_check:=0  P(sound20) P(correct)
+  - $trial==1? $sound20b_check!=1? $trial:=0 P(sound20) P(wrong) J(reset)
+  sound20b:
+  - $trial==0? $sound20b_check:=1 $trial+=1 P(sound20)
+  - $trial==1? $sound20a_check==1? $trial:=0 $sound20a_check:=0  P(sound20) P(correct)
+  - $trial==1? $sound20a_check!=1? $trial:=0 P(sound20) P(wrong) J(reset)
+
+  reset:
+  - $sound1a_check:=0
+  - $sound1b_check:=0
+  - $sound2a_check:=0
+  - $sound2b_check:=0
+  - $sound3a_check:=0
+  - $sound3b_check:=0
+  - $sound4a_check:=0
+  - $sound4b_check:=0
+  - $sound5a_check:=0
+  - $sound5b_check:=0
+  - $sound6a_check:=0
+  - $sound6b_check:=0
+  - $sound7a_check:=0
+  - $sound7b_check:=0
+  - $sound8a_check:=0
+  - $sound8b_check:=0
+  - $sound9a_check:=0
+  - $sound9b_check:=0
+  - $sound10a_check:=0
+  - $sound10b_check:=0
+  - $sound11a_check:=0
+  - $sound11b_check:=0
+  - $sound12a_check:=0
+  - $sound12b_check:=0
+  - $sound13a_check:=0
+  - $sound13b_check:=0
+  - $sound14a_check:=0
+  - $sound14b_check:=0
+  - $sound15a_check:=0
+  - $sound15b_check:=0
+  - $sound16a_check:=0
+  - $sound16b_check:=0
+  - $sound17a_check:=0
+  - $sound17b_check:=0
+  - $sound18a_check:=0
+  - $sound18b_check:=0
+  - $sound19a_check:=0
+  - $sound19b_check:=0
+  - $sound20a_check:=0
+  - $sound20b_check:=0
+
+scriptcodes:
+  sound1a: 10087 #haus
+  sound1b: 10109 #lowenzahn
+  sound2a: 10118 #birke
+  sound2b: 10098 #troll
+  sound3a: 10085 #dreiecke
+  sound3b: 7084 #a3
+  sound4a: 10090 #karte3
+  sound4b: 10100 #baumstumpf
+  sound5a: 10108 #weg
+  sound5b: 10119 #karte4
+  sound6a: 10083 #bauraum
+  sound6b: 7090 #paul
+  sound7a: 10096 #spirale
+  sound7b: 10089 #karte2
+  sound8a: 10121 #pfaehle
+  sound8b: 10084 #beeren
+  sound9a: 7091 #pfeile
+  sound9b: 7083 #a2
+  sound10a: 10086 #eicheln
+  sound10b: 10104 #pfeil
+  sound11a: 10124 #turm
+  sound11b: 10088 #kakadu
+  sound12a: 10101 #markierungen
+  sound12b: 10107 #wasserpumpe
+  sound13a: 7087 #kindergarten
+  sound13b: 10082 #baumhaus
+  sound14a: 10095 #spinne
+  sound14b: 10102 #schatz
+  sound15a: 10120 #nestschaukel
+  sound15b: 10092 #maul
+  sound16a: 10123 #tische
+  sound16b: 7082 #a1
+  sound17a: 7085 #karte1
+  sound17b: 10097 #tannenzapfen
+  sound18a: 7086 #armband
+  sound18b: 10099 #kindergarten2
+  sound19a: 10094 #schnecke
+  sound19b: 10105 #wald
+  sound20a: 10093 #schaukel
+  sound20b: 10091 #katze
+  reserve1: 7088 #ok
+  reserve2: 10125 #wippe
+  reserve3: 10122 #zeichen
+
+  reset: 11111
