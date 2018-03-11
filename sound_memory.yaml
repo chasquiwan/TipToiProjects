@@ -13,7 +13,7 @@ product-id: 904
 # the file "example/Buch1_test.ogg".
 # Ogg files should be Mono, 22050 Hz.
 # tttool will append .wav or .ogg and uses whatever it finds
-media-path: "geraeusch_memory/media/%s"
+media-path: "media/%s"
 
 # The comment does not really matter
 comment: An example GME file
